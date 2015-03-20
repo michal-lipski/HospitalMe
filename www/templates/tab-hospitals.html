@@ -1,0 +1,16 @@
+<ion-view view-title="Hospitals">
+  <ion-content>
+    <ion-list>
+      <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="hospital in hospitals" type="item-text-wrap" href="#/tab/hospitals/{{hospital.id}}">
+        <!--<img ng-src="{{chat.face}}">-->
+        <h2>{{hospital.name}}</h2>
+        <p>{{hospital.address}}</p>
+        <i class="icon ion-chevron-right icon-accessory"></i>
+
+        <ion-option-button class="button-assertive" ng-click="">
+          Map
+        </ion-option-button>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-view>
