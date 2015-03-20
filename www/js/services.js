@@ -22,7 +22,7 @@ angular.module('starter.services', [])
             {
                 id: 0,
                 name: "Mazowiecki Szpital Bródnowski w Warszawie Sp. z o.o.",
-                address: "03-242 Warszawa, ul. Kondratowicza 8",
+                address: "ul. Kondratowicza 8, 03-242 Warszawa",
                 phone: "(22)-326-58-88",
                 www: "www.szpital-brodnowski.waw.pl",
                 type: ['okulista']
@@ -31,7 +31,7 @@ angular.module('starter.services', [])
             {
                 id: 1,
                 name: "Międzyleski Szpital Specjalistyczny w Warszawie",
-                address: "04-749 Warszawa, ul. Bursztynowa 2",
+                address: "ul. Bursztynowa 2, 04-749 Warszawa",
                 phone: "(22)-473-53-33",
                 www: "www.mssw.pl",
                 type: ['okulista']
@@ -41,7 +41,7 @@ angular.module('starter.services', [])
             {
                 id: 2,
                 name: "Szpital Czerniakowski",
-                address: "00-739 Warszawa, ul. Stępińska 19-25",
+                address: "ul. Stępińska 19-25, 00-739 Warszawa",
                 phone: "(22)-318-63-06",
                 www: "www.szpitalczerniakowski.waw.pl",
                 type: ['okulista']
@@ -51,7 +51,7 @@ angular.module('starter.services', [])
             {
                 id: 3,
                 name: "Centralny Szpital Kliniczny MSW w Warszawie",
-                address: "02-507 Warszawa, ul. Wołoska 137",
+                address: "ul. Wołoska 137, 02-507 Warszawa",
                 phone: "(22)-508-15-10",
                 www: "www.cskmswia.pl",
                 type: ['okulista']
@@ -61,7 +61,7 @@ angular.module('starter.services', [])
             {
                 id: 4,
                 name: "Wojskowy Instytut Medyczny",
-                address: "04-141 Warszawa, ul. Szaserów 128",
+                address: "ul. Szaserów 128, 04-141 Warszawa",
                 phone: "(22)-810-08-16",
                 www: "www.wim.mil.pl",
                 type: ['okulista']
@@ -71,7 +71,7 @@ angular.module('starter.services', [])
             {
                 id: 5,
                 name: "Samodzielny Publiczny Kliniczny Szpital Okulistyczny",
-                address: "03-709 Warszawa, ul. Sierakowskiego 13",
+                address: "ul. Sierakowskiego 13, 03-709 Warszawa",
                 phone: "(22)-511-62-10",
                 www: "www.spkso.waw.pl",
                 type: ['okulista']
@@ -81,7 +81,7 @@ angular.module('starter.services', [])
             {
                 id: 6,
                 name: "Szpital Kliniczny Dzieciątka Jezus",
-                address: "02-005 Warszawa, ul. Lindleya 4",
+                address: "ul. Williama Lindleya 4, 02-005 Warszawa",
                 phone: "(22)-502-12-80",
                 www: "www.dzieciatkajezus.pl",
                 type: ['okulista']
@@ -90,8 +90,8 @@ angular.module('starter.services', [])
 
             {
                 id: 7,
-                name: "Samodzielny Szpital Kliniczny i. Prof. W. Orłowskiego",
-                address: "00-416 Warszawa, ul. Czerniakowska 231",
+                name: "Samodzielny Szpital Kliniczny im. Prof. W. Orłowskiego",
+                address: "ul. Czerniakowska 231, 00-416 Warszawa",
                 phone: "(22)-584-12-62",
                 www: "www.szpital-orlowskiego.pl",
                 type: ['okulista']
