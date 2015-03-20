@@ -4,8 +4,18 @@ angular.module('starter.controllers', [])
 
     })
 
-    .controller('HospitalsCtrl', function ($scope, Hospitals, $http) {
-        $scope.hospitals = Hospitals.all();
+    .controller('HospitalsCtrl', function ($scope, Hospitals, $http,$stateParams) {
+
+
+        if($stateParams.hospitalType){
+            $scope.type = $stateParams.hospitalType;
+            $scope.hospitals = _.filter(Hospitals.all(),function(hospital){
+                return _.includes(hospital.type,$stateParams.hospitalType);
+            });
+        }else{
+            $scope.hospitals = Hospitals.all();
+        }
+
         navigator.geolocation.getCurrentPosition(onSuccess, onError, {enableHighAccuracy: true});
 
         function onError(error) {
@@ -48,6 +58,7 @@ angular.module('starter.controllers', [])
     })
 
     .controller('HospitalDetailCtrl', function ($scope, $stateParams, Hospitals, $http, Map) {
+
         $scope.hospital = Hospitals.get($stateParams.hospitalId);
 
         $scope.openMap = function () {

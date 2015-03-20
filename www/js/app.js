@@ -66,6 +66,15 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
         }
       }
     })
+      .state('tab.hospital-type', {
+          url: '/hospitals-type/:hospitalType',
+          views: {
+              'tab-hospitals-type': {
+                  templateUrl: 'templates/hospital-detail.html',
+                  controller: 'HospitalDetailCtrl'
+              }
+          }
+      })
 
   .state('tab.account', {
     url: '/account',

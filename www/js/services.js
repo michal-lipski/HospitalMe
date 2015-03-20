@@ -95,6 +95,22 @@ angular.module('starter.services', [])
                 phone: "(22)-584-12-62",
                 www: "www.szpital-orlowskiego.pl",
                 type: ['okulista']
+            },
+            {
+                id: 8,
+                name: "Szpital im prof. Jana  Bogdanowicza",
+                address: "ul. Niekłańska 4/24, 03-924 Warszawa",
+                phone: "(22)-617-60-51",
+                www: "www.nieklanska.pl",
+                type: ['pediatria']
+            },
+            {
+                id: 9,
+                name: "Szpital Praski p.w. Przemienienia Pańskiego",
+                address: "al. Solidarności 67, 03-401 Warszawa",
+                phone: "(22)-818-50-61",
+                www: "www.szpitalpraski.pl",
+                type: ['pediatria']
             }
         ];
 

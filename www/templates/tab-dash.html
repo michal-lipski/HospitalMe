@@ -1,14 +1,22 @@
-<ion-view view-title="Categories">
+<ion-view view-title="Specjalizacje">
     <ion-content>
-        <ion-list>
-            <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="category in categories | orderBy:'distance.value'" type="item-text-wrap" href="#/tab/hospitals/{{hospital.id}}">
-                <!--<img ng-src="{{chat.face}}">-->
-                <h2>{{hospital.name}}</h2>
-                <p>{{hospital.address}}</p>
-                <p>{{hospital.distance.text}} ({{hospital.duration.text}})</p>
-                <!--<i class="icon ion-chevron-right icon-accessory"></i>-->
+        <div class="list">
 
-            </ion-item>
-        </ion-list>
+            <a class="item item-icon-left" href="#/tab/hospitals-type/okulista">
+
+                Okuliści
+                <span class="item-note">
+                    8
+                </span>
+            </a>
+            <a class="item item-icon-left" href="#/tab/hospitals-type/pediatria">
+
+                Pediatria
+                <span class="item-note">
+                    2
+                </span>
+            </a>
+
+        </div>
     </ion-content>
 </ion-view>
