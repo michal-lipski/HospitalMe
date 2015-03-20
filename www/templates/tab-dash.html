@@ -1,28 +1,14 @@
-<ion-view view-title="Dashboard">
-  <ion-content class="padding">
-    <div class="list card">
-      <div class="item item-divider">Recent Updates</div>
-      <div class="item item-body">
-        <div>
-          There is a fire in <b>sector 3</b>
-        </div>
-      </div>
-    </div>
-    <div class="list card">
-      <div class="item item-divider">Health</div>
-      <div class="item item-body">
-        <div>
-          You ate an apple today!
-        </div>
-      </div>
-    </div>
-    <div class="list card">
-      <div class="item item-divider">Upcoming</div>
-      <div class="item item-body">
-        <div>
-          You have <b>29</b> meetings on your calendar tomorrow.
-        </div>
-      </div>
-    </div>
-  </ion-content>
+<ion-view view-title="Categories">
+    <ion-content>
+        <ion-list>
+            <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="category in categories | orderBy:'distance.value'" type="item-text-wrap" href="#/tab/hospitals/{{hospital.id}}">
+                <!--<img ng-src="{{chat.face}}">-->
+                <h2>{{hospital.name}}</h2>
+                <p>{{hospital.address}}</p>
+                <p>{{hospital.distance.text}} ({{hospital.duration.text}})</p>
+                <!--<i class="icon ion-chevron-right icon-accessory"></i>-->
+
+            </ion-item>
+        </ion-list>
+    </ion-content>
 </ion-view>
