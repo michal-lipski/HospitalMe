@@ -1,9 +1,30 @@
-
 <ion-view view-title="{{hospital.name}}">
-  <ion-content class="padding">
-    <!--<img ng-src="{{chat.face}}" style="width: 64px; height: 64px">-->
-    <p>
-      {{hospital.address}}
-    </p>
-  </ion-content>
+    <ion-content>
+
+        <div class="list card">
+
+            <a href="#" class="item item-icon-left" ng-click="openMap(hospital)">
+                <i class="icon ion-navigate"></i>
+                {{hospital.address}}
+            </a>
+
+            <a href="#" class="item item-icon-left">
+                <i class="icon ion-ios-telephone"></i>
+                {{hospital.phone}}
+            </a>
+
+
+            <a href="#" class="item item-icon-left" ng-click="openWWW(hospital.www)">
+                <i class="icon ion-android-wifi"></i>
+               {{hospital.www}}
+            </a>
+
+        </div>
+
+
+        <!--<div id="map" data-tap-disabled="true">map</div>-->
+    </ion-content>
+    <ion-footer-bar class="bar-dark">
+        <a ng-click="openMap(hospital)" class="button button-icon icon ion-navigate">Show on map</a>
+    </ion-footer-bar>
 </ion-view>
