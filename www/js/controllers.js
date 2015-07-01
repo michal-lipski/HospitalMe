@@ -4,20 +4,26 @@ angular.module('starter.controllers', [])
 
     })
 
-    .controller('HospitalsCtrl', function ($scope, Hospitals, $http, $stateParams) {
+    .controller('HospitalsCtrl', function ($scope, Hospitals, $http, $rootScope,Navigation) {
 
         Hospitals.all().success(function (data) {
             $scope.hospitals = data;
         });
 
-        navigator.geolocation.getCurrentPosition(onSuccess, onError, {enableHighAccuracy: true});
+        $rootScope.$on('onApplicationResume', function() {
+            Navigation.currentPosition(calculateHospitalsDistance);
+        });
 
-        function onError(error) {
-            alert('Error: ' + error.code + '\n' + 'message: ' + error.message + '\n');
-        }
+        $rootScope.$on('positionChanged', function() {
+            alert("position changed");
+            Navigation.currentPosition(calculateHospitalsDistance);
+        });
 
-        function onSuccess(position) {
-            //$scope.hospitals = Hospitals.all();
+        Navigation.currentPosition(calculateHospitalsDistance);
+
+
+        function calculateHospitalsDistance(position) {
+
             try {
                 var service = new google.maps.DistanceMatrixService();
             } catch (ex) {
@@ -55,7 +61,7 @@ angular.module('starter.controllers', [])
 
         Hospitals.all().success(function(data) {
             $scope.hospital = _.find(data, {id: $stateParams.hospitalId});
-        })
+        });
 
         $scope.openMap = function () {
             window.open('http://maps.google.com/?q=' + $scope.hospital.address);
