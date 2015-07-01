@@ -15,7 +15,6 @@ angular.module('starter.controllers', [])
         });
 
         $rootScope.$on('positionChanged', function() {
-            alert("position changed");
             Navigation.currentPosition(calculateHospitalsDistance);
         });
 
