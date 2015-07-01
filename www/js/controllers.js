@@ -58,8 +58,11 @@ angular.module('starter.controllers', [])
 
     .controller('HospitalDetailCtrl', function ($scope, $stateParams, Hospitals, $http, Map) {
 
+
+
         Hospitals.all().success(function(data) {
             $scope.hospital = _.find(data, {id: $stateParams.hospitalId});
+            initialize();
         });
 
         $scope.openMap = function () {
@@ -69,6 +72,41 @@ angular.module('starter.controllers', [])
         $scope.openWWW = function (url) {
             window.open('http://' + url, '_system', 'location=yes');
         };
+
+        function initialize() {
+            $http.get("https://maps.googleapis.com/maps/api/geocode/json?address=" + encodeURI($scope.hospital.address) + "&key=AIzaSyC-OvKegNOWfGExVbG1x1xuMztPsxb3ZSk").
+                success(function (data, status, headers, config) {
+                    var location = data.results[0].geometry.location;
+                    //var map = Map.get(location.lat, location.lng);
+                    //$scope.map = map;
+
+                    $scope.map =  new google.maps.Map(document.getElementById('map'), {
+                        zoom: 16,
+                        center: {lat: location.lat, lng: location.lng}
+                    });
+
+                    var marker = new google.maps.Marker({
+                        position: location,
+                        map: $scope.map,
+                        title: 'Hello World!'
+                    });
+
+                    var url = 'http://maps.google.com/?q=' + $scope.hospital.address;
+                    var infowindow = new google.maps.InfoWindow({
+                        content: '<a target="_blank" href="#" onclick="window.open(\'' + url + '\')">Nawiguj do mapy</a>'
+                    });
+
+                    google.maps.event.addListener(marker, 'click', function() {
+                        infowindow.open($scope.map,marker);
+                    });
+                }).
+                error(function (data, status, headers, config) {
+                    alert('error');
+                    alert('_ ' + data);
+                });
+        }
+
+
 
 
     })
