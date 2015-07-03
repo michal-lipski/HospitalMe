@@ -16,7 +16,7 @@ angular.module('starter.services', [])
 
     .factory('Hospitals', function ($http) {
 
-        var hospitals = $http.get("http://hospitals.herokuapp.com/hospital");
+        var hospitals = $http.get("https://api.um.warszawa.pl/api/action/wfsstore_get/?id=fd137190-3d65-4306-a85e-5e97e7f29a23&apikey=9b7e14dd-5fb4-4b35-880a-add59b348069");
 
         return {
             all: function () {
@@ -32,38 +32,49 @@ angular.module('starter.services', [])
             }
         };
     })
-    .factory('Navigation', function ($rootScope) {
+    .factory('Distance', function () {
 
-        var currentPosition = {coords:{latitude:0,longitude:0}};
+
+
+        return {
+            calculateDistance: function (pos1, pos2) {
+
+                function toRad(number) {
+                    return number * Math.PI / 180;
+                }
+
+                var R = 6371; // km
+                var dLat = toRad(pos2.latitude - pos1.latitude);
+                var dLon = toRad(pos2.longitude - pos1.longitude);
+                var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+                    Math.cos(toRad(pos1.latitude)) * Math.cos(toRad(pos2.latitude)) *
+                    Math.sin(dLon / 2) * Math.sin(dLon / 2);
+                var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+                var d = R * c;
+                return d;
+
+
+            }
+        }
+    })
+    .factory('Navigation', function ($rootScope, Distance) {
+
+        var currentPosition = {coords: {latitude: 0, longitude: 0}};
 
         function getCurrentPosition(onSuccess, onError) {
             navigator.geolocation.getCurrentPosition(onSuccess, onError, {enableHighAccuracy: true});
         }
 
         function defaultError() {
-            alert('Error: ' + error.code + '\n' + 'message: ' + error.message + '\n');
+            alert('Calculating position Error: ' + error.code + '\n' + 'message: ' + error.message + '\n');
         }
 
         function onPositionChange(position) {
             function positionHasChanged(position) {
-                function calculateDistance(lat1, lon1, lat2, lon2) {
-                    var R = 6371; // km
-                    var dLat = (lat2 - lat1).toRad();
-                    var dLon = (lon2 - lon1).toRad();
-                    var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-                        Math.cos(lat1.toRad()) * Math.cos(lat2.toRad()) *
-                        Math.sin(dLon / 2) * Math.sin(dLon / 2);
-                    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-                    var d = R * c;
-                    return d;
-                }
 
-                Number.prototype.toRad = function () {
-                    return this * Math.PI / 180;
-                };
-
-                var distance = calculateDistance(position.coords.latitude, position.coords.longitude, currentPosition.coords.latitude, currentPosition.coords.longitude);
-                return distance > 0.01;
+                var distance = Distance.calculateDistance(position.coords, currentPosition.coords);
+                var ten_meters = 0.01;
+                return distance > ten_meters;
             }
 
             if (positionHasChanged(position)) {
@@ -71,7 +82,6 @@ angular.module('starter.services', [])
                 $rootScope.$broadcast('positionChanged');
             }
         }
-
 
 
         navigator.geolocation.watchPosition(onPositionChange, defaultError, {timeout: 30000});
@@ -85,4 +95,27 @@ angular.module('starter.services', [])
 
     }
 )
+    .factory('PharmacyParser', function () {
+        return {
+            parse: function (data) {
+                var parsedData = _.map(data.result.featureMemberList, function (location) {
+
+                    function prop(key, defaultValue) {
+                        defaultValue = defaultValue || "";
+                        var property = _.find(location.properties, {key: key});
+                        return ( property ) ? property.value : defaultValue
+                    }
+
+                    return {
+                        position: location.geometry.coordinates[0],
+                        name: prop("OPIS", "Apteka"),
+                        address: prop("ULICA") + " " + prop("NUMER"),
+                        phone: prop("TEL_FAX"),
+                        hours: prop("godziny_pracy")
+                    }
+                });
+                return parsedData;
+            }
+        };
+    })
 ;

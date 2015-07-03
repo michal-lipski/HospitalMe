@@ -4,41 +4,63 @@ angular.module('starter.controllers', [])
 
     })
 
-    .controller('HospitalsCtrl', function ($scope, Hospitals, $http, $rootScope,Navigation) {
+    .controller('HospitalsCtrl', function ($scope, Hospitals, $http, $rootScope, Navigation, PharmacyParser, Distance) {
+
+        function parse(data) {
+            return PharmacyParser.parse(data);
+        }
 
         Hospitals.all().success(function (data) {
-            $scope.hospitals = data;
+            $scope.hospitals = parse(data);
+            Navigation.currentPosition(calculateHospitalsDistance);
+
         });
 
-        $rootScope.$on('onApplicationResume', function() {
+        $rootScope.$on('onApplicationResume', function () {
             Navigation.currentPosition(calculateHospitalsDistance);
         });
 
-        $rootScope.$on('positionChanged', function() {
-            Navigation.currentPosition(calculateHospitalsDistance);
+        $rootScope.$on('positionChanged', function () {
+            if ($scope.hospitals && $scope.hospitals.length > 0) {
+                Navigation.currentPosition(calculateHospitalsDistance);
+            }
         });
 
-        Navigation.currentPosition(calculateHospitalsDistance);
 
+        function filterHospitals(hospitals, maxAmount, currentPosition) {
+            var nearbyHospitals = _.map(hospitals, function (hospital) {
+                hospital.rawDistance = Distance.calculateDistance(hospital.position, currentPosition.coords)
+                return hospital
+            });
+            nearbyHospitals = _.sortBy(nearbyHospitals, function (hospital) {
+                return hospital.rawDistance;
+            });
+
+            return _.take(nearbyHospitals, maxAmount);
+        }
 
         function calculateHospitalsDistance(position) {
+
+            $scope.hospitals = filterHospitals($scope.hospitals, 20, position);
 
             try {
                 var service = new google.maps.DistanceMatrixService();
             } catch (ex) {
-                alert(ex);
+                alert("DistanceMatrixService registration error: " + ex);
             }
             service.getDistanceMatrix(
                 {
                     origins: ['' + position.coords.latitude + "," + position.coords.longitude],
-                    destinations: _.pluck($scope.hospitals, 'address'),
+                    destinations: _.map($scope.hospitals, function (h) {
+                        return '' + h.position.latitude + "," + h.position.longitude
+                    }),
                     travelMode: google.maps.TravelMode.DRIVING,
                     unitSystem: google.maps.UnitSystem.METRIC
                 }, callback);
 
             function callback(response, status) {
                 if (status != google.maps.DistanceMatrixStatus.OK) {
-                    alert('Error was: ' + status);
+                    alert('DistanceMatrixStatus Error was: ' + status);
                 } else {
 
                     var row = response.rows[0];
@@ -59,8 +81,7 @@ angular.module('starter.controllers', [])
     .controller('HospitalDetailCtrl', function ($scope, $stateParams, Hospitals, $http, Map) {
 
 
-
-        Hospitals.all().success(function(data) {
+        Hospitals.all().success(function (data) {
             $scope.hospital = _.find(data, {id: $stateParams.hospitalId});
             initialize();
         });
@@ -80,7 +101,7 @@ angular.module('starter.controllers', [])
                     //var map = Map.get(location.lat, location.lng);
                     //$scope.map = map;
 
-                    $scope.map =  new google.maps.Map(document.getElementById('map'), {
+                    $scope.map = new google.maps.Map(document.getElementById('map'), {
                         zoom: 16,
                         center: {lat: location.lat, lng: location.lng}
                     });
@@ -96,17 +117,14 @@ angular.module('starter.controllers', [])
                         content: '<a target="_blank" href="#" onclick="window.open(\'' + url + '\')">Nawiguj do mapy</a>'
                     });
 
-                    google.maps.event.addListener(marker, 'click', function() {
-                        infowindow.open($scope.map,marker);
+                    google.maps.event.addListener(marker, 'click', function () {
+                        infowindow.open($scope.map, marker);
                     });
                 }).
                 error(function (data, status, headers, config) {
-                    alert('error');
-                    alert('_ ' + data);
+                    alert('Maps error, status = ' + status);
                 });
         }
-
-
 
 
     })

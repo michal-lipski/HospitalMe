@@ -2,7 +2,7 @@
 
 describe('Hospital',function(){
 
-    beforeEach(module('starter.controllers'));
+    beforeEach(module('starter.controllers','starter.services'));
 
     var http;
     var scope;
@@ -26,7 +26,7 @@ describe('Hospital',function(){
         });
     }));
 
-    it("calls google api for location of hospital", function () {
+    xit("calls google api for location of hospital", function () {
         var hospitalAddress = "03-242%20Warszawa,%20ul.%20Kondratowicza%208";
 
         http.expectGET("https://maps.googleapis.com/maps/api/geocode/json?address="+hospitalAddress+"&key=AIzaSyC-OvKegNOWfGExVbG1x1xuMztPsxb3ZSk").respond(200);
