@@ -20,7 +20,7 @@ describe('Hospital',function(){
 
         $controller('HospitalDetailCtrl', {
             $scope: scope,
-            $stateParams:{hospitalId:1},
+            $stateParams:{id:1},
             Hospitals:hospital,
             Map: map
         });

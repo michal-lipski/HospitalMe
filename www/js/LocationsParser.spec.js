@@ -76,6 +76,7 @@ describe('Hospital parese', function () {
         var parsedData = pharmacyParser.parse(data);
 
         expect(parsedData).toContain({
+            id:"1634",
             position:{
                 latitude: "52.235154",
                 longitude: "20.971456"

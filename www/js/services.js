@@ -22,9 +22,9 @@ angular.module('starter.services', [])
             all: function () {
                 return hospitals;
             },
-            get: function (hospitalId) {
+            get: function (id) {
                 for (var i = 0; i < hospitals.length; i++) {
-                    if (hospitals[i].id === parseInt(hospitalId)) {
+                    if (hospitals[i].id === parseInt(id)) {
                         return hospitals[i];
                     }
                 }
@@ -107,6 +107,7 @@ angular.module('starter.services', [])
                     }
 
                     return {
+                        id: prop("OBJECTID"),
                         position: location.geometry.coordinates[0],
                         name: prop("OPIS", "Apteka"),
                         address: prop("ULICA") + " " + prop("NUMER"),

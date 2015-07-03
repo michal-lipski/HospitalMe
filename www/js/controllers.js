@@ -11,7 +11,7 @@ angular.module('starter.controllers', [])
         }
 
         Hospitals.all().success(function (data) {
-            $scope.hospitals = parse(data);
+            $rootScope.hospitals = parse(data);
             Navigation.currentPosition(calculateHospitalsDistance);
 
         });
@@ -21,7 +21,7 @@ angular.module('starter.controllers', [])
         });
 
         $rootScope.$on('positionChanged', function () {
-            if ($scope.hospitals && $scope.hospitals.length > 0) {
+            if ($rootScope.hospitals && $rootScope.hospitals.length > 0) {
                 Navigation.currentPosition(calculateHospitalsDistance);
             }
         });
@@ -41,7 +41,7 @@ angular.module('starter.controllers', [])
 
         function calculateHospitalsDistance(position) {
 
-            $scope.hospitals = filterHospitals($scope.hospitals, 20, position);
+            $rootScope.hospitals = filterHospitals($scope.hospitals, 25, position);
 
             try {
                 var service = new google.maps.DistanceMatrixService();
@@ -78,13 +78,16 @@ angular.module('starter.controllers', [])
 
     })
 
-    .controller('HospitalDetailCtrl', function ($scope, $stateParams, Hospitals, $http, Map) {
+    .controller('HospitalDetailCtrl', function ($scope, $stateParams, Hospitals, $http, hospital) {
 
+        $scope.hospital = hospital;
+        initialize();
 
-        Hospitals.all().success(function (data) {
-            $scope.hospital = _.find(data, {id: $stateParams.hospitalId});
-            initialize();
-        });
+        //
+        //Hospitals.all().success(function (data) {
+        //    $scope.hospital = _.find(data, {id: $stateParams.id});
+        //    initialize();
+        //});
 
         $scope.openMap = function () {
             window.open('http://maps.google.com/?q=' + $scope.hospital.address);

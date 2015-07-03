@@ -38,15 +38,15 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
 
             // Each tab has its own nav history stack:
 
-            .state('tab.dash', {
-                url: '/dash',
-                views: {
-                    'tab-dash': {
-                        templateUrl: 'templates/tab-dash.html',
-                        controller: 'DashCtrl'
-                    }
-                }
-            })
+            //.state('tab.dash', {
+            //    url: '/dash',
+            //    views: {
+            //        'tab-dash': {
+            //            templateUrl: 'templates/tab-dash.html',
+            //            controller: 'DashCtrl'
+            //        }
+            //    }
+            //})
 
             .state('tab.hospitals', {
                 url: '/hospitals',
@@ -58,11 +58,16 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
                 }
             })
             .state('tab.hospital-detail', {
-                url: '/hospitals/:hospitalId',
+                url: '/hospitals/:id',
                 views: {
                     'tab-hospitals': {
                         templateUrl: 'templates/hospital-detail.html',
-                        controller: 'HospitalDetailCtrl'
+                        controller: 'HospitalDetailCtrl',
+                        resolve: {
+                            hospital: function ($rootScope,$stateParams) {
+                                return _.find($rootScope.hospitals, {id: $stateParams.id});
+                            }
+                        }
                     }
                 }
             })
@@ -87,7 +92,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
             });
 
         // if none of the above states are matched, use this as the fallback
-        $urlRouterProvider.otherwise('/tab/dash');
+        $urlRouterProvider.otherwise('/tab/hospitals');
 
     })
     .config(['$httpProvider', function ($httpProvider) {
