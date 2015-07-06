@@ -9,6 +9,7 @@
     </author>
   <content src="index.html"/>
   <access origin="*" subdomains="true"/>
+  <access origin="tel:*" launch-external="yes" />
   <access origin="https://api.um.warszawa.pl/api" subdomains="true"/>
   <access origin="geo:*" launch-external="yes" />
     <access origin="*://*.googleapis.com/*" subdomains="true" />

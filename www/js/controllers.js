@@ -231,12 +231,12 @@ angular.module('starter.controllers', [])
                     var marker = new google.maps.Marker({
                         position: location,
                         map: $scope.map,
-                        title: 'Hello World!'
+                        title: $scope.hospital.name
                     });
 
                     var url = 'http://maps.google.com/?q=' + $scope.hospital.address;
                     var infowindow = new google.maps.InfoWindow({
-                        content: '<a target="_blank" href="#" onclick="window.open(\'' + url + '\')">Nawiguj do mapy</a>'
+                        content: '<a target="_blank" href="#" onclick="window.open(\'' + url + '\')">Nawiguj do miejsca</a>'
                     });
 
                     google.maps.event.addListener(marker, 'click', function () {
