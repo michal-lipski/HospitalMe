@@ -15,31 +15,19 @@
         <i class="icon ion-checkmark"></i>
         <h2>{{hospital.name}}</h2>
         <p>{{hospital.address}}</p>
-        <p>{{hospital.distance.text}} ({{hospital.duration.text}})</p>
-        <!--<i class="icon ion-chevron-right icon-accessory"></i>-->
-<!---->
+        <!--<p><b>{{hospital.distance.text}} ({{hospital.duration.text}})</b></p>-->
+        <span class="badge">{{hospital.duration.text}}</span>
+        <span style="top:42px;" class="badge">{{hospital.distance.text}}</span>
       </ion-item>
     </ion-list>
   </ion-content>
 
   <ion-tabs class="tabs-icon-top tabs-positive">
-    <ion-tab title="Car" icon-off="ion-android-car" icon-on="ion-android-car" ></ion-tab>
-    <ion-tab title="Bike" icon-off="ion-android-bicycle" icon-on="ion-android-bicycle" ></ion-tab>
-    <ion-tab title="Walk" icon-off="ion-android-walk" icon-on="ion-android-walk" ></ion-tab>
+    <ion-tab title="Car" icon-off="ion-android-car" icon-on="ion-android-car" ng-click="calculateNewDistancesCar()"></ion-tab>
+    <ion-tab title="Transit" icon-off="ion-android-subway" icon-on="ion-android-subway" ng-click="calculateNewDistancesTransit()"></ion-tab>
+    <ion-tab title="Bike" icon-off="ion-android-bicycle" icon-on="ion-android-bicycle" ng-click="calculateNewDistancesBike()"></ion-tab>
+    <ion-tab title="Walk" icon-off="ion-android-walk" icon-on="ion-android-walk" ng-click="calculateNewDistancesWalk()"></ion-tab>
   </ion-tabs>
 
-  <!--<div class="bar bar-footer bar-positive">-->
-    <!--<div class="title">Footer</div>-->
 
-    <!--&lt;!&ndash;<label class="toggle pull-right">&ndash;&gt;-->
-      <!--&lt;!&ndash;<input type="checkbox">&ndash;&gt;-->
-      <!--&lt;!&ndash;<div class="track">&ndash;&gt;-->
-        <!--&lt;!&ndash;<div class="handle"></div>&ndash;&gt;-->
-      <!--&lt;!&ndash;</div>&ndash;&gt;-->
-    <!--&lt;!&ndash;</label>&ndash;&gt;-->
-
-    <!--<a class="button button-icon icon ion-android-car"></a>-->
-    <!--<a class="button button-icon icon ion-android-bike"></a>-->
-    <!--<a class="button button-icon icon ion-android-walk"></a>-->
-  <!--</div>-->
 </ion-view>

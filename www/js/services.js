@@ -35,7 +35,6 @@ angular.module('starter.services', [])
     .factory('Distance', function () {
 
 
-
         return {
             calculateDistance: function (pos1, pos2) {
 
@@ -110,7 +109,7 @@ angular.module('starter.services', [])
                         id: prop("OBJECTID"),
                         position: location.geometry.coordinates[0],
                         name: prop("OPIS", "Apteka"),
-                        address: prop("ULICA") + " " + prop("NUMER"),
+                        address: "Warszawa, "+prop("ULICA") + " " + prop("NUMER"),
                         phone: prop("TEL_FAX"),
                         hours: prop("godziny_pracy")
                     }
@@ -118,5 +117,26 @@ angular.module('starter.services', [])
                 return parsedData;
             }
         };
+    })
+    .factory('DistanceMatrixService', function () {
+        return {
+            calculate: function (origin, destinations, callback, travelMode) {
+                travelMode = travelMode || google.maps.TravelMode.DRIVING;
+                try {
+                    var service = new google.maps.DistanceMatrixService();
+                } catch (ex) {
+                    alert("DistanceMatrixService registration error: " + ex);
+                }
+                service.getDistanceMatrix(
+                    {
+                        origins: ['' + origin.coords.latitude + "," + origin.coords.longitude],
+                        destinations: _.map(destinations, function (h) {
+                            return '' + h.position.latitude + "," + h.position.longitude
+                        }),
+                        travelMode: travelMode,
+                        unitSystem: google.maps.UnitSystem.METRIC
+                    }, callback);
+            }
+        }
     })
 ;

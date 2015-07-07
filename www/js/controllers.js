@@ -1,28 +1,147 @@
 angular.module('starter.controllers', [])
 
-    .controller('DashCtrl', function ($scope) {
-
-    })
-
-    .controller('HospitalsCtrl', function ($scope, Hospitals, $http, $rootScope, Navigation, PharmacyParser, Distance) {
+    .controller('HospitalsCtrl', function ($scope, Hospitals, $http, $rootScope, Navigation, PharmacyParser, Distance, DistanceMatrixService) {
 
         function parse(data) {
             return PharmacyParser.parse(data);
         }
 
-        Hospitals.all().success(function (data) {
-            $rootScope.hospitals = parse(data);
-            Navigation.currentPosition(calculateHospitalsDistance);
+        //Hospitals.all().success(function (data) {
+        //    $rootScope.hospitals = parse(data);
+        //    Navigation.currentPosition(onPositionChanged);
+        //
+        //});
 
+
+        $rootScope.hospitals = parse({
+            result: {
+                featureMemberList: [
+                    {
+                        geometry: {
+                            type: "ShapePoint",
+                            coordinates: [
+                                {
+                                    latitude: "52.247733",
+                                    longitude: "20.973322"
+                                }
+                            ]
+                        },
+                        properties: [
+                            {
+                                value: "1634",
+                                key: "OBJECTID"
+                            },
+                            {
+                                value: "Karowa",
+                                key: "ULICA"
+                            },
+                            {
+                                value: "5",
+                                key: "NUMER"
+                            },
+                            {
+                                value: "04-051",
+                                key: "KOD"
+                            },
+                            {
+                                value: "APTEKA 2",
+                                key: "OPIS"
+                            },
+                            {
+                                value: "pon.-pt. 08.00-21.00, sob. 09.00-15.00",
+                                key: "godziny_pracy"
+                            },
+                            {
+                                value: "Praga-Południe",
+                                key: "DZIELNICA"
+                            },
+                            {
+                                value: "Warszawa",
+                                key: "JEDN_ADM"
+                            },
+                            {
+                                value: "22 870-68-68",
+                                key: "TEL_FAX"
+                            },
+                            {
+                                value: "poligonowa@neostrada.pl",
+                                key: "MAIL"
+                            },
+                            {
+                                value: "czerwiec 2014",
+                                key: "AKTU_DAN"
+                            }
+                        ]
+                    },
+                    {
+                        geometry: {
+                            type: "ShapePoint",
+                            coordinates: [
+                                {
+                                    latitude: "52.235154",
+                                    longitude: "20.971456"
+                                }
+                            ]
+                        },
+                        properties: [
+                            {
+                                value: "1634",
+                                key: "OBJECTID"
+                            },
+                            {
+                                value: "Poligonowa",
+                                key: "ULICA"
+                            },
+                            {
+                                value: "1 lok. 2",
+                                key: "NUMER"
+                            },
+                            {
+                                value: "04-051",
+                                key: "KOD"
+                            },
+                            {
+                                value: "APTEKA",
+                                key: "OPIS"
+                            },
+                            {
+                                value: "pon.-pt. 08.00-21.00, sob. 09.00-15.00",
+                                key: "godziny_pracy"
+                            },
+                            {
+                                value: "Praga-Południe",
+                                key: "DZIELNICA"
+                            },
+                            {
+                                value: "Warszawa",
+                                key: "JEDN_ADM"
+                            },
+                            {
+                                value: "22 870-68-68",
+                                key: "TEL_FAX"
+                            },
+                            {
+                                value: "poligonowa@neostrada.pl",
+                                key: "MAIL"
+                            },
+                            {
+                                value: "czerwiec 2014",
+                                key: "AKTU_DAN"
+                            }
+                        ]
+                    }
+                ]
+            }
         });
+        Navigation.currentPosition(onPositionChanged);
 
         $rootScope.$on('onApplicationResume', function () {
-            Navigation.currentPosition(calculateHospitalsDistance);
+            Navigation.currentPosition(onPositionChanged);
         });
 
         $rootScope.$on('positionChanged', function () {
             if ($rootScope.hospitals && $rootScope.hospitals.length > 0) {
-                Navigation.currentPosition(calculateHospitalsDistance);
+                Navigation.currentPosition(onPositionChanged);
             }
         });
 
@@ -39,42 +158,49 @@ angular.module('starter.controllers', [])
             return _.take(nearbyHospitals, maxAmount);
         }
 
-        function calculateHospitalsDistance(position) {
+        function onPositionChanged(position) {
+            $rootScope.position = position;
+            $rootScope.hospitals = filterHospitals($scope.hospitals, 10, position);
 
-            $rootScope.hospitals = filterHospitals($scope.hospitals, 25, position);
+            $scope.calculateNewDistances();
+        }
 
-            try {
-                var service = new google.maps.DistanceMatrixService();
-            } catch (ex) {
-                alert("DistanceMatrixService registration error: " + ex);
-            }
-            service.getDistanceMatrix(
-                {
-                    origins: ['' + position.coords.latitude + "," + position.coords.longitude],
-                    destinations: _.map($scope.hospitals, function (h) {
-                        return '' + h.position.latitude + "," + h.position.longitude
-                    }),
-                    travelMode: google.maps.TravelMode.DRIVING,
-                    unitSystem: google.maps.UnitSystem.METRIC
-                }, callback);
+        $scope.calculateNewDistances = function() {
+            DistanceMatrixService.calculate($rootScope.position, $rootScope.hospitals, onDistanceCalculated, $scope.travelMode);
+        };
 
-            function callback(response, status) {
-                if (status != google.maps.DistanceMatrixStatus.OK) {
-                    alert('DistanceMatrixStatus Error was: ' + status);
-                } else {
+        function onDistanceCalculated(response, status) {
+            if (status != google.maps.DistanceMatrixStatus.OK) {
+                alert('DistanceMatrixStatus Error was: ' + status);
+            } else {
 
-                    var row = response.rows[0];
+                var row = response.rows[0];
 
-                    for (var j = 0; j < row.elements.length; j++) {
-                        var element = row.elements[j];
-                        $scope.hospitals[j].distance = element.distance;
-                        $scope.hospitals[j].duration = element.duration;
-                    }
-                    $scope.$apply();
+                for (var j = 0; j < row.elements.length; j++) {
+                    var element = row.elements[j];
+                    $scope.hospitals[j].distance = element.distance;
+                    $scope.hospitals[j].duration = element.duration;
                 }
+                $scope.$apply();
             }
         }
 
+        $scope.calculateNewDistancesCar =function(){
+            $scope.travelMode = google.maps.TravelMode.DRIVING;
+            $scope.calculateNewDistances();
+        };
+        $scope.calculateNewDistancesBike =function(){
+            $scope.travelMode = google.maps.TravelMode.BICYCLING;
+            $scope.calculateNewDistances();
+        };
+        $scope.calculateNewDistancesWalk =function(){
+            $scope.travelMode = google.maps.TravelMode.WALKING;
+            $scope.calculateNewDistances();
+        };
+        $scope.calculateNewDistancesTransit =function(){
+            $scope.travelMode = google.maps.TravelMode.TRANSIT;
+            $scope.calculateNewDistances();
+        };
 
     })
 
@@ -82,12 +208,6 @@ angular.module('starter.controllers', [])
 
         $scope.hospital = hospital;
         initialize();
-
-        //
-        //Hospitals.all().success(function (data) {
-        //    $scope.hospital = _.find(data, {id: $stateParams.id});
-        //    initialize();
-        //});
 
         $scope.openMap = function () {
             window.open('http://maps.google.com/?q=' + $scope.hospital.address);
@@ -98,11 +218,10 @@ angular.module('starter.controllers', [])
         };
 
         function initialize() {
+            //TOD mamy location w obiekcie juz
             $http.get("https://maps.googleapis.com/maps/api/geocode/json?address=" + encodeURI($scope.hospital.address) + "&key=AIzaSyC-OvKegNOWfGExVbG1x1xuMztPsxb3ZSk").
                 success(function (data, status, headers, config) {
                     var location = data.results[0].geometry.location;
-                    //var map = Map.get(location.lat, location.lng);
-                    //$scope.map = map;
 
                     $scope.map = new google.maps.Map(document.getElementById('map'), {
                         zoom: 16,
