@@ -110,7 +110,7 @@ angular.module('starter.services', [])
                         id: prop("OBJECTID"),
                         position: location.geometry.coordinates[0],
                         name: prop("OPIS", "Apteka"),
-                        address: "Warszawa, "+prop("ULICA") + " " + prop("NUMER"),
+                        address: prop("ULICA") + " " + prop("NUMER"),
                         phone: prop("TEL_FAX"),
                         hours: prop("godziny_pracy")
                     }

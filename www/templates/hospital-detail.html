@@ -3,8 +3,8 @@
 
         <div class="list card">
 
-            <ion-item class="item-avatar item-icon-left" type="item-text-wrap" >
-                <i class="icon ion-checkmark"></i>
+            <ion-item class="item-avatar" type="item-text-wrap" >
+                <img src="img/a_open.png"/>
                 <h3>{{hospital.name}}</h3>
                 <p>otwarta jezcze 35 min</p>
                 <span style=" color: #000000;" class="badge">{{hospital.duration.text}}</span>
@@ -12,11 +12,9 @@
             </ion-item>
 
             <div class="item">
-
                 <p><i class="icon ion-android-home"></i>  {{hospital.address}}</p>
                 <p><i class="icon ion-ios-telephone"></i>  {{hospital.phone}}</p>
                 <p><i class="icon ion-android-time"></i>  {{hospital.hours}}</p>
-
             </div>
 
             <div class="item item-body" style="height: 400px;">
@@ -34,10 +32,6 @@
         <a class="tab-item"  ng-click="openMap(hospital)">
             <i class="icon ion-navigate"></i>
             Prowadź do
-        </a>
-        <a class="tab-item" href="#">
-            <i class="icon ion-pull-request"></i>
-            jak dojadę
         </a>
     </ion-tabs>
 </ion-view>

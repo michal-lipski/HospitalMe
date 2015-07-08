@@ -1,38 +1,44 @@
 <ion-view view-title="Apteki {{type}}">
-  <ion-nav-buttons side="right">
-    <label class="toggle">
+    <ion-nav-buttons side="right">
+        <label class="toggle">
 
-      <input type="checkbox">
-      <div class="track">
-        <div class="handle"></div>
-      </div>
-    </label>
-  </ion-nav-buttons>
+            <input type="checkbox">
 
-  <ion-content>
-    <ion-list>
-      <ion-item class="item-remove-animate item-avatar item-icon-left" ng-repeat="hospital in hospitals | orderBy:'distance.value'"
-                type="item-text-wrap" href="#/tab/hospitals/{{hospital.id}}">
-        <i class="icon ion-checkmark"></i>
-        <h2>{{hospital.name}}</h2>
-        <p>{{hospital.address}}</p>
-        <span style="color: #000000;font-size: 16px;" class="badge">{{hospital.duration.text}}</span>
-        <span style="top:42px;margin-right: 0px; " class="badge">{{hospital.distance.text}}</span>
-      </ion-item>
-    </ion-list>
-  </ion-content>
+            <div class="track">
+                <div class="handle"></div>
+            </div>
+        </label>
+    </ion-nav-buttons>
 
-  <ion-tabs class="tabs-icon-top tabs-positive">
-    <ion-tab title="Car" icon-off="ion-android-car" icon-on="ion-android-car" ng-click="calculateNewDistancesCar()"></ion-tab>
-    <ion-tab title="Transit" icon-off="ion-android-subway" icon-on="ion-android-subway" ng-click="calculateNewDistancesTransit()"></ion-tab>
-    <ion-tab title="Bike" icon-off="ion-android-bicycle" icon-on="ion-android-bicycle" ng-click="calculateNewDistancesBike()"></ion-tab>
-    <ion-tab title="Walk" icon-off="ion-android-walk" icon-on="ion-android-walk" ng-click="calculateNewDistancesWalk()"></ion-tab>
-  </ion-tabs>
-  <!--<div class="bar bar-footer bar-positive">-->
-    <!--&lt;!&ndash;<ion-tab title="Car" icon-off="ion-android-car" icon-on="ion-android-car" ng-click="calculateNewDistancesCar()"></ion-tab>&ndash;&gt;-->
-    <!--&lt;!&ndash;<ion-tab title="Transit" icon-off="ion-android-subway" icon-on="ion-android-subway" ng-click="calculateNewDistancesTransit()"></ion-tab>&ndash;&gt;-->
-    <!--&lt;!&ndash;<ion-tab title="Bike" icon-off="ion-android-bicycle" icon-on="ion-android-bicycle" ng-click="calculateNewDistancesBike()"></ion-tab>&ndash;&gt;-->
-    <!--&lt;!&ndash;<ion-tab title="Walk" icon-off="ion-android-walk" icon-on="ion-android-walk" ng-click="calculateNewDistancesWalk()"></ion-tab>&ndash;&gt;-->
-  <!--</div>-->
+    <ion-content>
+        <ion-list>
+            <ion-item class="item-remove-animate item-avatar" ng-repeat="hospital in hospitals | orderBy:'distance.value'"
+                      type="item-text-wrap" href="#/tab/hospitals/{{hospital.id}}">
+                <img src="img/a_open.png"/>
+
+                <h2>{{hospital.name}}</h2>
+
+                <p>{{hospital.address}}</p>
+                <span style="color: #000000;font-size: 16px;" class="badge">{{hospital.duration.text}}</span>
+                <span style="top:42px;margin-right: 0px; " class="badge">{{hospital.distance.text}}</span>
+            </ion-item>
+        </ion-list>
+    </ion-content>
+
+    <ion-footer-bar align-title="left" class="bar-positive tabs" style="height: 55px;">
+        <a class="tab-item" ng-click="calculateNewDistancesCar()" ng-class="{true:'activated'}[true]">
+            <i class="icon ion-android-car"></i>
+        </a>
+        <a class="tab-item" ng-click="calculateNewDistancesTransit()" ng-class="{true:'activated'}[isTravelModeTransit()]">
+            <i class="icon ion-android-subway"></i>
+        </a>
+        <a class="tab-item" ng-click="calculateNewDistancesWalk()" ng-class="{true:'activated'}[isTravelModeWalk()]">
+            <i class="icon ion-android-walk"></i>
+        </a>
+        <a class="tab-item" ng-click="calculateNewDistancesBike()" ng-class="{true:'activated'}[isTravelModeBike()]">
+            <i class="icon ion-android-bicycle"></i>
+        </a>
+
+    </ion-footer-bar>
 
 </ion-view>
