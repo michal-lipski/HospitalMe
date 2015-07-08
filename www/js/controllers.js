@@ -6,134 +6,132 @@ angular.module('starter.controllers', [])
             return PharmacyParser.parse(data);
         }
 
-        //Hospitals.all().success(function (data) {
-        //    $rootScope.hospitals = parse(data);
-        //    Navigation.currentPosition(onPositionChanged);
-        //
-        //});
-
-
-        $rootScope.hospitals = parse({
-            result: {
-                featureMemberList: [
-                    {
-                        geometry: {
-                            type: "ShapePoint",
-                            coordinates: [
-                                {
-                                    latitude: "52.247733",
-                                    longitude: "20.973322"
-                                }
-                            ]
-                        },
-                        properties: [
-                            {
-                                value: "1634",
-                                key: "OBJECTID"
-                            },
-                            {
-                                value: "Karowa",
-                                key: "ULICA"
-                            },
-                            {
-                                value: "5",
-                                key: "NUMER"
-                            },
-                            {
-                                value: "04-051",
-                                key: "KOD"
-                            },
-                            {
-                                value: "APTEKA 2",
-                                key: "OPIS"
-                            },
-                            {
-                                value: "pon.-pt. 08.00-21.00, sob. 09.00-15.00",
-                                key: "godziny_pracy"
-                            },
-                            {
-                                value: "Praga-Południe",
-                                key: "DZIELNICA"
-                            },
-                            {
-                                value: "Warszawa",
-                                key: "JEDN_ADM"
-                            },
-                            {
-                                value: "22 870-68-68",
-                                key: "TEL_FAX"
-                            },
-                            {
-                                value: "poligonowa@neostrada.pl",
-                                key: "MAIL"
-                            },
-                            {
-                                value: "czerwiec 2014",
-                                key: "AKTU_DAN"
-                            }
-                        ]
-                    },
-                    {
-                        geometry: {
-                            type: "ShapePoint",
-                            coordinates: [
-                                {
-                                    latitude: "52.235154",
-                                    longitude: "20.971456"
-                                }
-                            ]
-                        },
-                        properties: [
-                            {
-                                value: "1634",
-                                key: "OBJECTID"
-                            },
-                            {
-                                value: "Poligonowa",
-                                key: "ULICA"
-                            },
-                            {
-                                value: "1 lok. 2",
-                                key: "NUMER"
-                            },
-                            {
-                                value: "04-051",
-                                key: "KOD"
-                            },
-                            {
-                                value: "APTEKA",
-                                key: "OPIS"
-                            },
-                            {
-                                value: "pon.-pt. 08.00-21.00, sob. 09.00-15.00",
-                                key: "godziny_pracy"
-                            },
-                            {
-                                value: "Praga-Południe",
-                                key: "DZIELNICA"
-                            },
-                            {
-                                value: "Warszawa",
-                                key: "JEDN_ADM"
-                            },
-                            {
-                                value: "22 870-68-68",
-                                key: "TEL_FAX"
-                            },
-                            {
-                                value: "poligonowa@neostrada.pl",
-                                key: "MAIL"
-                            },
-                            {
-                                value: "czerwiec 2014",
-                                key: "AKTU_DAN"
-                            }
-                        ]
-                    }
-                ]
-            }
+        Hospitals.all().success(function (data) {
+            $rootScope.hospitals = parse(data);
+            Navigation.currentPosition(onPositionChanged);
         });
-        Navigation.currentPosition(onPositionChanged);
+
+        //$rootScope.hospitals = parse({
+        //    result: {
+        //        featureMemberList: [
+        //            {
+        //                geometry: {
+        //                    type: "ShapePoint",
+        //                    coordinates: [
+        //                        {
+        //                            latitude: "52.247733",
+        //                            longitude: "20.973322"
+        //                        }
+        //                    ]
+        //                },
+        //                properties: [
+        //                    {
+        //                        value: "1634",
+        //                        key: "OBJECTID"
+        //                    },
+        //                    {
+        //                        value: "Karowa",
+        //                        key: "ULICA"
+        //                    },
+        //                    {
+        //                        value: "5",
+        //                        key: "NUMER"
+        //                    },
+        //                    {
+        //                        value: "04-051",
+        //                        key: "KOD"
+        //                    },
+        //                    {
+        //                        value: "APTEKA 2",
+        //                        key: "OPIS"
+        //                    },
+        //                    {
+        //                        value: "pon.-pt. 08.00-21.00, sob. 09.00-15.00",
+        //                        key: "godziny_pracy"
+        //                    },
+        //                    {
+        //                        value: "Praga-Południe",
+        //                        key: "DZIELNICA"
+        //                    },
+        //                    {
+        //                        value: "Warszawa",
+        //                        key: "JEDN_ADM"
+        //                    },
+        //                    {
+        //                        value: "22 870-68-68",
+        //                        key: "TEL_FAX"
+        //                    },
+        //                    {
+        //                        value: "poligonowa@neostrada.pl",
+        //                        key: "MAIL"
+        //                    },
+        //                    {
+        //                        value: "czerwiec 2014",
+        //                        key: "AKTU_DAN"
+        //                    }
+        //                ]
+        //            },
+        //            {
+        //                geometry: {
+        //                    type: "ShapePoint",
+        //                    coordinates: [
+        //                        {
+        //                            latitude: "52.235154",
+        //                            longitude: "20.971456"
+        //                        }
+        //                    ]
+        //                },
+        //                properties: [
+        //                    {
+        //                        value: "1634",
+        //                        key: "OBJECTID"
+        //                    },
+        //                    {
+        //                        value: "Poligonowa",
+        //                        key: "ULICA"
+        //                    },
+        //                    {
+        //                        value: "1 lok. 2",
+        //                        key: "NUMER"
+        //                    },
+        //                    {
+        //                        value: "04-051",
+        //                        key: "KOD"
+        //                    },
+        //                    {
+        //                        value: "APTEKA",
+        //                        key: "OPIS"
+        //                    },
+        //                    {
+        //                        value: "pon.-pt. 08.00-21.00, sob. 09.00-15.00",
+        //                        key: "godziny_pracy"
+        //                    },
+        //                    {
+        //                        value: "Praga-Południe",
+        //                        key: "DZIELNICA"
+        //                    },
+        //                    {
+        //                        value: "Warszawa",
+        //                        key: "JEDN_ADM"
+        //                    },
+        //                    {
+        //                        value: "22 870-68-68",
+        //                        key: "TEL_FAX"
+        //                    },
+        //                    {
+        //                        value: "poligonowa@neostrada.pl",
+        //                        key: "MAIL"
+        //                    },
+        //                    {
+        //                        value: "czerwiec 2014",
+        //                        key: "AKTU_DAN"
+        //                    }
+        //                ]
+        //            }
+        //        ]
+        //    }
+        //});
+        //Navigation.currentPosition(onPositionChanged);
 
         $rootScope.$on('onApplicationResume', function () {
             Navigation.currentPosition(onPositionChanged);
