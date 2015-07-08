@@ -7,3 +7,18 @@
     width: 100%;
     height: 100%;
 }
+
+.details_icon {
+    font-size: 18px;
+    margin-left: 5px;
+    margin-right: 5px;
+    color: #098635;
+}
+
+.bar.bar-apteki{
+    border-color: #07491b;
+    background-color: #098635;
+    color: #fff;
+}
+
+

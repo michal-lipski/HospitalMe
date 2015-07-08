@@ -1,20 +1,22 @@
-<ion-view >
+<ion-view>
     <ion-content>
 
         <div class="list card">
 
-            <ion-item class="item-avatar" type="item-text-wrap" >
+            <ion-item class="item-avatar" type="item-text-wrap">
                 <img src="img/a_open.png"/>
-                <h3>{{hospital.name}}</h3>
-                <p>otwarta jezcze 35 min</p>
+
+                <h3 style="margin-top: 10px;">{{hospital.name}}</h3>
                 <span style=" color: #000000;" class="badge">{{hospital.duration.text}}</span>
-                <span style="top:42px;" class="badge">{{hospital.distance.text}}</span>
+                <span style="top:42px;margin-right: 0px;" class="badge">{{hospital.distance.text}}</span>
             </ion-item>
 
             <div class="item">
-                <p><i class="icon ion-android-home"></i>  {{hospital.address}}</p>
-                <p><i class="icon ion-ios-telephone"></i>  {{hospital.phone}}</p>
-                <p><i class="icon ion-android-time"></i>  {{hospital.hours}}</p>
+                <p><i class="icon ion-android-home details_icon"></i> {{hospital.address}}</p>
+
+                <p><i class="icon ion-ios-telephone details_icon"></i> {{hospital.phone}}</p>
+
+                <p ng-if="hospital.hours"><i class="icon ion-android-time details_icon"></i> {{hospital.hours}}</p>
             </div>
 
             <div class="item item-body" style="height: 400px;">
@@ -24,14 +26,12 @@
         </div>
     </ion-content>
 
-    <ion-tabs class="tabs-icon-top tabs-positive">
-        <a class="tab-item" ng-href="tel:+{{hospital.phone}}">
-            <i class="icon ion-ios-telephone"></i>
-            Zadzwoń
+    <ion-footer-bar align-title="left" class="bar-apteki tabs " style="height: 55px;">
+        <a class="tab-item active" ng-href="tel:+{{hospital.phone}}">
+            <i class="icon ion-android-call"></i>
         </a>
-        <a class="tab-item"  ng-click="openMap(hospital)">
-            <i class="icon ion-navigate"></i>
-            Prowadź do
+        <a class="tab-item active" ng-click="openMap(hospital)">
+            <i class="icon ion-android-navigate"></i>
         </a>
-    </ion-tabs>
+    </ion-footer-bar>
 </ion-view>

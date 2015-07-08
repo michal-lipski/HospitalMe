@@ -1,41 +1,32 @@
 <ion-view view-title="Apteki {{type}}">
-    <ion-nav-buttons side="right">
-        <label class="toggle">
-
-            <input type="checkbox">
-
-            <div class="track">
-                <div class="handle"></div>
-            </div>
-        </label>
-    </ion-nav-buttons>
 
     <ion-content>
         <ion-list>
-            <ion-item class="item-remove-animate item-avatar" ng-repeat="hospital in hospitals | orderBy:'distance.value'"
+            <ion-item class="item-remove-animate item-avatar" ng-repeat="hospital in hospitals | orderBy:'duration.value'"
                       type="item-text-wrap" href="#/tab/hospitals/{{hospital.id}}">
-                <img src="img/a_open.png"/>
+                <img style="margin-top: 10px;" src="img/a_open.png"/>
 
                 <h2>{{hospital.name}}</h2>
 
                 <p>{{hospital.address}}</p>
+                <p>{{hospital.hours}}</p>
                 <span style="color: #000000;font-size: 16px;" class="badge">{{hospital.duration.text}}</span>
                 <span style="top:42px;margin-right: 0px; " class="badge">{{hospital.distance.text}}</span>
             </ion-item>
         </ion-list>
     </ion-content>
 
-    <ion-footer-bar align-title="left" class="bar-positive tabs" style="height: 55px;">
-        <a class="tab-item" ng-click="calculateNewDistancesCar()" ng-class="{true:'activated'}[true]">
+    <ion-footer-bar align-title="left" class="bar-apteki tabs" style="height: 55px;">
+        <a class="tab-item" ng-click="calculateNewDistancesCar()" ng-class="{true:'active'}[isTravelModeDriving()]">
             <i class="icon ion-android-car"></i>
         </a>
-        <a class="tab-item" ng-click="calculateNewDistancesTransit()" ng-class="{true:'activated'}[isTravelModeTransit()]">
+        <a class="tab-item" ng-click="calculateNewDistancesTransit()" ng-class="{true:'active'}[isTravelModeTransit()]">
             <i class="icon ion-android-subway"></i>
         </a>
-        <a class="tab-item" ng-click="calculateNewDistancesWalk()" ng-class="{true:'activated'}[isTravelModeWalk()]">
+        <a class="tab-item" ng-click="calculateNewDistancesWalk()" ng-class="{true:'active'}[isTravelModeWalk()]">
             <i class="icon ion-android-walk"></i>
         </a>
-        <a class="tab-item" ng-click="calculateNewDistancesBike()" ng-class="{true:'activated'}[isTravelModeBike()]">
+        <a class="tab-item" ng-click="calculateNewDistancesBike()" ng-class="{true:'active'}[isTravelModeBike()]">
             <i class="icon ion-android-bicycle"></i>
         </a>
 
