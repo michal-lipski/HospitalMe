@@ -1,6 +1,7 @@
 <ion-view view-title="Apteki {{type}}">
   <ion-nav-buttons side="right">
     <label class="toggle">
+
       <input type="checkbox">
       <div class="track">
         <div class="handle"></div>
@@ -15,9 +16,8 @@
         <i class="icon ion-checkmark"></i>
         <h2>{{hospital.name}}</h2>
         <p>{{hospital.address}}</p>
-        <!--<p><b>{{hospital.distance.text}} ({{hospital.duration.text}})</b></p>-->
-        <span class="badge">{{hospital.duration.text}}</span>
-        <span style="top:42px;" class="badge">{{hospital.distance.text}}</span>
+        <span style=" color: #000000;font-size: 16px;" class="badge">{{hospital.duration.text}}</span>
+        <span style="top:42px;margin-right: 0px; " class="badge">{{hospital.distance.text}}</span>
       </ion-item>
     </ion-list>
   </ion-content>
@@ -28,6 +28,11 @@
     <ion-tab title="Bike" icon-off="ion-android-bicycle" icon-on="ion-android-bicycle" ng-click="calculateNewDistancesBike()"></ion-tab>
     <ion-tab title="Walk" icon-off="ion-android-walk" icon-on="ion-android-walk" ng-click="calculateNewDistancesWalk()"></ion-tab>
   </ion-tabs>
-
+  <!--<div class="bar bar-footer bar-positive">-->
+    <!--&lt;!&ndash;<ion-tab title="Car" icon-off="ion-android-car" icon-on="ion-android-car" ng-click="calculateNewDistancesCar()"></ion-tab>&ndash;&gt;-->
+    <!--&lt;!&ndash;<ion-tab title="Transit" icon-off="ion-android-subway" icon-on="ion-android-subway" ng-click="calculateNewDistancesTransit()"></ion-tab>&ndash;&gt;-->
+    <!--&lt;!&ndash;<ion-tab title="Bike" icon-off="ion-android-bicycle" icon-on="ion-android-bicycle" ng-click="calculateNewDistancesBike()"></ion-tab>&ndash;&gt;-->
+    <!--&lt;!&ndash;<ion-tab title="Walk" icon-off="ion-android-walk" icon-on="ion-android-walk" ng-click="calculateNewDistancesWalk()"></ion-tab>&ndash;&gt;-->
+  <!--</div>-->
 
 </ion-view>

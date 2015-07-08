@@ -1,27 +1,43 @@
-<ion-view view-title="{{hospital.name}}">
+<ion-view >
     <ion-content>
 
-        <div class="list card" style="height: 90%">
+        <div class="list card">
 
-            <a href="#" class="item item-icon-left" ng-click="openMap(hospital)">
-                <i class="icon ion-map"></i>
-                {{hospital.address}}
-            </a>
+            <ion-item class="item-avatar item-icon-left" type="item-text-wrap" >
+                <i class="icon ion-checkmark"></i>
+                <h3>{{hospital.name}}</h3>
+                <p>otwarta jezcze 35 min</p>
+                <span style=" color: #000000;" class="badge">{{hospital.duration.text}}</span>
+                <span style="top:42px;" class="badge">{{hospital.distance.text}}</span>
+            </ion-item>
 
-            <a ng-href="tel:+{{hospital.phone}}" class="item item-icon-left">
-                <i class="icon ion-ios-telephone"></i>
-                {{hospital.phone}}
-            </a>
+            <div class="item">
 
+                <p><i class="icon ion-android-home"></i>  {{hospital.address}}</p>
+                <p><i class="icon ion-ios-telephone"></i>  {{hospital.phone}}</p>
+                <p><i class="icon ion-clock"></i>  {{hospital.hours}}</p>
 
-            <a href="#" class="item item-icon-left" >
-                <i class="icon ion-clock"></i>
-               {{hospital.hours}}
-            </a>
+            </div>
 
-            <div id="map" data-tap-disabled="true" style="height: 75%;">map</div>
+            <div class="item item-body" style="height: 400px;">
+                <div class="item item-body" id="map" data-tap-disabled="true" style="height: 100%">map</div>
+            </div>
+
         </div>
-
-
     </ion-content>
+
+    <ion-tabs class="tabs-icon-top tabs-positive">
+        <a class="tab-item" ng-href="tel:+{{hospital.phone}}">
+            <i class="icon ion-ios-telephone"></i>
+            Zadzwoń
+        </a>
+        <a class="tab-item"  ng-click="openMap(hospital)">
+            <i class="icon ion-navigate"></i>
+            Prowadź do
+        </a>
+        <a class="tab-item" href="#">
+            <i class="icon ion-pull-request"></i>
+            jak dojadę
+        </a>
+    </ion-tabs>
 </ion-view>
