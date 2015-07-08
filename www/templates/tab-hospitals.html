@@ -4,7 +4,8 @@
         <ion-list>
             <ion-item class="item-remove-animate item-avatar" ng-repeat="hospital in hospitals | orderBy:'duration.value'"
                       type="item-text-wrap" href="#/tab/hospitals/{{hospital.id}}">
-                <img style="margin-top: 10px;" src="img/a_open.png"/>
+                <img ng-if="hospital.hours" style="margin-top: 10px;" src="img/a_open.png"/>
+                <img ng-if="!hospital.hours" src="img/a_open.png"/>
 
                 <h2>{{hospital.name}}</h2>
 
