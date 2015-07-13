@@ -2,17 +2,17 @@
 
     <ion-content>
         <ion-list>
-            <ion-item class="item-remove-animate item-avatar" ng-repeat="hospital in hospitals | orderBy:'duration.value'"
-                      type="item-text-wrap" href="#/tab/hospitals/{{hospital.id}}">
-                <img ng-if="hospital.hours" style="margin-top: 10px;" src="img/a_open.png"/>
-                <img ng-if="!hospital.hours" src="img/a_open.png"/>
+            <ion-item class="item-remove-animate item-avatar" ng-repeat="pharmacy in pharmacies | orderBy:'duration.value'"
+                      type="item-text-wrap" href="#/tab/pharmacies/{{pharmacy.id}}">
+                <img ng-if="pharmacy.hours" style="margin-top: 10px;" src="img/a_open.png"/>
+                <img ng-if="!pharmacy.hours" src="img/a_open.png"/>
 
-                <h2>{{hospital.name}}</h2>
+                <h2>{{pharmacy.name}}</h2>
 
-                <p>{{hospital.address}}</p>
-                <p>{{hospital.hours}}</p>
-                <span style="color: #000000;font-size: 16px;" class="badge">{{hospital.duration.text}}</span>
-                <span style="top:42px;margin-right: 0px; " class="badge">{{hospital.distance.text}}</span>
+                <p>{{pharmacy.address}}</p>
+                <p>{{pharmacy.hours}}</p>
+                <span style="color: #000000;font-size: 16px;" class="badge">{{pharmacy.duration.text}}</span>
+                <span style="top:42px;margin-right: 0px; " class="badge">{{pharmacy.distance.text}}</span>
             </ion-item>
         </ion-list>
     </ion-content>

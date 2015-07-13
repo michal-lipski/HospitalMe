@@ -1,4 +1,4 @@
-describe('Hospital parese', function () {
+describe('Pharmacy parese', function () {
 
     beforeEach(module('starter.services'));
 
