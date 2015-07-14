@@ -1,15 +1,12 @@
 angular.module('app.list', [])
     .controller('PharmaciesCtrl', function ($scope, Pharmacies, $http, $rootScope, Navigation, PharmacyParser, Distance, DistanceMatrixService) {
 
-        function parse(data) {
-            return PharmacyParser.parse(data);
-        }
-
         $scope.travelMode = google.maps.TravelMode.DRIVING;
 
+        $scope.loading = true;
         Pharmacies.all().success(function (data) {
-            $rootScope.pharmacies = parse(data);
-            Navigation.currentPosition(onPositionChanged);
+            $rootScope.pharmacies = PharmacyParser.parse(data);
+            Navigation.currentPosition(onPositionCalculated);
         });
 
 
@@ -34,6 +31,11 @@ angular.module('app.list', [])
             });
 
             return _.take(nearbyHospitals, maxAmount);
+        }
+
+        function onPositionCalculated(position) {
+            $scope.loading = false;
+            onPositionChanged(position);
         }
 
         function onPositionChanged(position) {

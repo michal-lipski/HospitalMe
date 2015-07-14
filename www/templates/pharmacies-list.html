@@ -1,7 +1,10 @@
 <ion-view view-title="Apteki {{type}}">
 
     <ion-content>
-        <ion-list>
+        <div class="spinner">
+            <ion-spinner ng-show="loading" icon="bubbles" class="spinner-balanced"></ion-spinner>
+        </div>
+        <ion-list ng-show="!loading">
             <ion-item class="item-remove-animate item-avatar" ng-repeat="pharmacy in pharmacies | orderBy:'duration.value'"
                       type="item-text-wrap" href="#/tab/pharmacies/{{pharmacy.id}}">
                 <img ng-if="pharmacy.hours" style="margin-top: 10px;" src="img/a_open.png"/>
@@ -17,7 +20,7 @@
         </ion-list>
     </ion-content>
 
-    <ion-footer-bar align-title="left" class="bar-apteki tabs" style="height: 55px;">
+    <ion-footer-bar align-title="left" class="color-apteki tabs" style="height: 55px;">
         <a class="tab-item" ng-click="calculateNewDistancesCar()" ng-class="{true:'active'}[isTravelModeDriving()]">
             <i class="icon ion-android-car"></i>
         </a>

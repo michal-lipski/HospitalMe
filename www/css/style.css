@@ -15,10 +15,23 @@
     color: #098635;
 }
 
-.bar.bar-apteki{
+.color-apteki{
     border-color: #07491b;
     background-color: #098635;
     color: #fff;
+}
+
+div.spinner {
+    margin: auto;
+    position: absolute;
+    top: 0; left: 0; bottom: 0; right: 0;
+    height: 85px;
+    text-align: center;
+}
+
+.spinner svg {
+    width: 19% !important;
+    height: 85px !important;
 }
 
 
