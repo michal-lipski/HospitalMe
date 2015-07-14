@@ -24,30 +24,33 @@
     <script src="lib/lodash/lodash.js"></script>
     <!-- your app's js -->
     <script src="js/app.js"></script>
-    <script src="js/controllers.js"></script>
-    <script src="js/services.js"></script>
+    <script src="js/navigation/navigation.module.js"></script>
+    <script src="js/navigation/Distance.js"></script>
+    <script src="js/navigation/DistanceMatrix.js"></script>
+    <script src="js/navigation/Map.js"></script>
+    <script src="js/navigation/Position.js"></script>
+    <script src="js/details/PharmacyDetailsCtrl.js"></script>
+    <script src="js/list/PharmaciesCtrl.js"></script>
+    <script src="js/list/Pharmacies.js"></script>
+    <script src="js/list/PharmacyParser.js"></script>
     <script type="text/javascript" charset="utf-8">
 
         // Wait for device API libraries to load
-        //
         function onLoad() {
             document.addEventListener("deviceready", onDeviceReady, false);
         }
 
         // device APIs are available
-        //
         function onDeviceReady() {
             document.addEventListener("pause", onPause, false);
             document.addEventListener("resume", onResume, false);
         }
 
         // Handle the pause event
-        //
         function onPause() {
         }
 
         // Handle the resume event
-        //
         function onResume() {
             var div = document.getElementsByTagName('body')[0];
             var scope = angular.element(div).scope();
@@ -58,7 +61,7 @@
         }
     </script>
 </head>
-<body ng-app="starter">
+<body ng-app="app">
 <!--
   The nav bar that will be updated as we navigate between views.
 -->

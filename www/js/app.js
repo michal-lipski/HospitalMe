@@ -1,5 +1,9 @@
-
-angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
+angular.module('app', [
+    'ionic',
+    'app.list',
+    'app.details',
+    'app.navigation'
+])
 
     .run(function ($ionicPlatform) {
         $ionicPlatform.ready(function () {
@@ -39,7 +43,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
                         templateUrl: 'templates/pharmacy-detail.html',
                         controller: 'PharmacyDetailsCtrl',
                         resolve: {
-                            pharmacy: function ($rootScope,$stateParams) {
+                            pharmacy: function ($rootScope, $stateParams) {
                                 return _.find($rootScope.pharmacies, {id: $stateParams.id});
                             }
                         }
