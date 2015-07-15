@@ -6,80 +6,45 @@ angular.module('app.list', [])
         $scope.loading = true;
         Pharmacies.all().success(function (data) {
             $rootScope.pharmacies = PharmacyParser.parse(data);
-            Navigation.currentPosition(onPositionCalculated);
+            Navigation.currentPosition(onPositionChanged);
+            Navigation.watchPosition(onPositionChanged);
         });
-
 
         $rootScope.$on('onApplicationResume', function () {
             Navigation.currentPosition(onPositionChanged);
         });
 
-        $rootScope.$on('positionChanged', function () {
-            if ($rootScope.pharmacies && $rootScope.pharmacies.length > 0) {
-                Navigation.currentPosition(onPositionChanged);
-            }
-        });
-
-
-        function filterHospitals(pharmacies, maxAmount, currentPosition) {
-            var nearbyHospitals = _.map(pharmacies, function (pharmacy) {
-                pharmacy.rawDistance = Distance.calculateDistance(pharmacy.position, currentPosition.coords)
-                return pharmacy
-            });
-            nearbyHospitals = _.sortBy(nearbyHospitals, function (pharmacy) {
-                return pharmacy.rawDistance;
-            });
-
-            return _.take(nearbyHospitals, maxAmount);
-        }
-
-        function onPositionCalculated(position) {
-            $scope.loading = false;
-            onPositionChanged(position);
-        }
-
         function onPositionChanged(position) {
+            $scope.loading = false;
             $rootScope.position = position;
-            $rootScope.pharmacies = filterHospitals($scope.pharmacies, 10, position);
-
-            $scope.calculateNewDistances();
+            $rootScope.pharmacies = Distance.nearestPlaces($scope.pharmacies, 10, position.coords);
+            DistanceMatrixService.calculate($rootScope.position.coords, $rootScope.pharmacies, $scope.travelMode, onDistanceCalculated);
         }
 
-        $scope.calculateNewDistances = function () {
-            DistanceMatrixService.calculate($rootScope.position, $rootScope.pharmacies, onDistanceCalculated, $scope.travelMode);
-        };
-
-        function onDistanceCalculated(response, status) {
-            if (status != google.maps.DistanceMatrixStatus.OK) {
-                alert('DistanceMatrixStatus Error was: ' + status);
-            } else {
-
-                var row = response.rows[0];
-
-                for (var j = 0; j < row.elements.length; j++) {
-                    var element = row.elements[j];
-                    $scope.pharmacies[j].distance = element.distance;
-                    $scope.pharmacies[j].duration = element.duration;
-                }
-                $scope.$apply();
+        function onDistanceCalculated(response) {
+            for (var j = 0; j < response.elements.length; j++) {
+                var element = response.elements[j];
+                $scope.pharmacies[j].distance = element.distance;
+                $scope.pharmacies[j].duration = element.duration;
             }
+            $scope.$apply();
         }
 
         $scope.calculateNewDistancesCar = function () {
             $scope.travelMode = google.maps.TravelMode.DRIVING;
-            $scope.calculateNewDistances();
+            DistanceMatrixService.calculate($rootScope.position.coords, $rootScope.pharmacies, $scope.travelMode, onDistanceCalculated);
         };
         $scope.calculateNewDistancesBike = function () {
             $scope.travelMode = google.maps.TravelMode.BICYCLING;
-            $scope.calculateNewDistances();
+            DistanceMatrixService.calculate($rootScope.position.coords, $rootScope.pharmacies, $scope.travelMode, onDistanceCalculated);
         };
         $scope.calculateNewDistancesWalk = function () {
             $scope.travelMode = google.maps.TravelMode.WALKING;
-            $scope.calculateNewDistances();
+            DistanceMatrixService.calculate($rootScope.position.coords, $rootScope.pharmacies, $scope.travelMode, onDistanceCalculated);
         };
         $scope.calculateNewDistancesTransit = function () {
             $scope.travelMode = google.maps.TravelMode.TRANSIT;
-            $scope.calculateNewDistances();
+            DistanceMatrixService.calculate($rootScope.position.coords, $rootScope.pharmacies, $scope.travelMode, onDistanceCalculated);
         };
 
         $scope.isTravelModeDriving = function () {

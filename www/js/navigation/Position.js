@@ -11,27 +11,25 @@ angular.module('app.navigation')
             alert('Calculating position Error: ' + error.code + '\n' + 'message: ' + error.message + '\n');
         }
 
-        function onPositionChange(position) {
-            function positionHasChanged(position) {
-
-                var distance = Distance.calculateDistance(position.coords, currentPosition.coords);
-                var ten_meters = 0.01;
-                return distance > ten_meters;
-            }
-
-            if (positionHasChanged(position)) {
-                currentPosition = position;
-                $rootScope.$broadcast('positionChanged');
-            }
+        function positionHasChanged(position,position2) {
+            var maxDistance = 0.1;
+            var distance = Distance.calculateDistance(position.coords, position2.coords);
+            return distance > maxDistance;
         }
-
-
-        navigator.geolocation.watchPosition(onPositionChange, defaultError, {timeout: 30000});
 
         return {
             currentPosition: function (onSuccess, onError) {
                 onError = onError || defaultError;
                 return getCurrentPosition(onSuccess, onError);
+            },
+            watchPosition: function (callback) {
+                navigator.geolocation.watchPosition(function (newPosition) {
+                    if (positionHasChanged(newPosition, currentPosition)) {
+                        currentPosition = newPosition;
+                        callback(newPosition)
+                    }
+                }, defaultError, {timeout: 30000});
+
             }
         }
 
