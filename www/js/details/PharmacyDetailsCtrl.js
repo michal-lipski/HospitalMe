@@ -1,4 +1,4 @@
-angular.module('app.details', [])
+angular.module('app.details')
     .controller('PharmacyDetailsCtrl', function ($scope, $rootScope, pharmacy, Map) {
 
         $scope.pharmacy = pharmacy;

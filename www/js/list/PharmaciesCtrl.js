@@ -1,4 +1,4 @@
-angular.module('app.list', [])
+angular.module('app.list')
     .controller('PharmaciesCtrl', function ($scope, Pharmacies, $http, $rootScope, Navigation, PharmacyParser, Distance, DistanceMatrixService) {
 
         $scope.travelMode = google.maps.TravelMode.DRIVING;

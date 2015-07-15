@@ -15,7 +15,7 @@ angular.module('app.list')
                         position: location.geometry.coordinates[0],
                         name: prop("OPIS", "Apteka"),
                         address: prop("ULICA") + " " + prop("NUMER"),
-                        phone: prop("TEL_FAX"),
+                        phone: prop("TEL_FAX").split("/")[0].split(",")[0],
                         hours: prop("godziny_pracy")
                     }
                 });

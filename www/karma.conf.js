@@ -16,7 +16,7 @@ module.exports = function(config) {
             'lib/lodash/**/*.js',
             'lib/angular/**/*.js',
             'lib/angular-mocks/**/*.js',
-            'js/test/**/*.js',
+            'js/**/*.module.js',
             'js/**/*.js'
         ],
 

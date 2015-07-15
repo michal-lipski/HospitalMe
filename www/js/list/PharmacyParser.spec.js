@@ -1,6 +1,6 @@
 describe('Pharmacy parese', function () {
 
-    beforeEach(module('starter.services'));
+    beforeEach(module('app.list'));
 
     var pharmacyParser;
 
@@ -57,7 +57,7 @@ describe('Pharmacy parese', function () {
                                 key: "JEDN_ADM"
                             },
                             {
-                                value: "22 870-68-68",
+                                value: "22 870-68-68,22 870-68-68/22 870-68-68",
                                 key: "TEL_FAX"
                             },
                             {
