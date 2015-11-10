@@ -4,7 +4,7 @@ angular.module('app.list')
         $scope.travelMode = google.maps.TravelMode.DRIVING;
 
         $scope.loading = true;
-        Pharmacies.all().success(function (data) {
+        Pharmacies.all().then(function (data) {
             $rootScope.pharmacies = PharmacyParser.parse(data);
             Navigation.currentPosition(onPositionChanged);
             Navigation.watchPosition(onPositionChanged);
