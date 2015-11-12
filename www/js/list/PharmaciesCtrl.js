@@ -7,7 +7,6 @@ angular.module('app.list')
         Pharmacies.all().then(function (data) {
             $rootScope.pharmacies = PharmacyParser.parse(data);
             Navigation.currentPosition(onPositionChanged);
-            Navigation.watchPosition(onPositionChanged);
         });
 
         $rootScope.$on('onApplicationResume', function () {
