@@ -22,4 +22,4 @@ angular.module('app.list')
                 return parsedData;
             }
         };
-    })
+    });

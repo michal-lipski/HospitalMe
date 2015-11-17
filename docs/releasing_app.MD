@@ -12,9 +12,9 @@ pragma123
 
 cordova build --release android
 jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore /home/mlip/projects/pragma/hospitalMe/myApp/certs/hospitalme.keystore /home/mlip/projects/pragma/hospitalMe/myApp/platforms/android/ant-build/MainActivity-release-unsigned.apk hospitalme
-rm /home/mlip/projects/pragma/hospitalMe/myApp/platforms/android/ant-build/HospitalMe.apk
-zipalign -v 4 /home/mlip/projects/pragma/hospitalMe/myApp/platforms/android/ant-build/MainActivity-release-unsigned.apk /home/mlip/projects/pragma/hospitalMe/myApp/platforms/android/ant-build/HospitalMe.apk
+rm /home/mlip/projects/pragma/hospitalMe/myApp/platforms/android/ant-build/Apteki.apk
+zipalign -v 4 /home/mlip/projects/pragma/hospitalMe/myApp/platforms/android/ant-build/MainActivity-release-unsigned.apk /home/mlip/projects/pragma/hospitalMe/myApp/platforms/android/ant-build/Apteki.apk
 
 ## DEPLOYING ON PHONE ##
 
-Copy generated file HospitalMe.apk to your phone
+Copy generated file Apteki.apk to your phone
